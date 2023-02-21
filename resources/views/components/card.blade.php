@@ -4,14 +4,16 @@
         </div>
         <img src="http://internet-shop.tmweb.ru/storage/products/iphone_x.jpg" alt="iPhone X 64GB">
         <div class="caption">
-            <h3>iPhone X 64GB</h3>
-            <p>71990 ₽</p>
-            <p>
-            </p>
-            <form action="/basket/add/1" method="POST">
+            <h3>{{ $product->name }}</h3>
+            <p>{{ $product->price }} ₽</p>
+            <br>
+            <p>Категория: {{ $product->category->name }}</p>
+            <form action="http://internet-shop.tmweb.ru/basket/add/1" method="POST">
                 <button type="submit" class="btn btn-primary" role="button">В корзину</button>
-                <a href="/mobiles/iphone_x_64" class="btn btn-default" role="button">Подробнее</a>
+                <a href="{{ route('product', [$product->category->code, $product->code]) }}" class="btn btn-default"
+                    role="button">Подробнее</a>
                 <input type="hidden" name="_token">
+                @csrf
             </form>
             <p></p>
         </div>

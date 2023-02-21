@@ -27,7 +27,7 @@
                     <li class="active"><a href="{{ route('index') }}">Все товары</a></li>
                     <li><a href="{{ route('categories') }}">Категории</a>
                     </li>
-                    <li><a href="/basket">{{ route('basket') }}</a></li>
+                    <li><a href={{ route('basket') }}>Корзина</a></li>
                     <li><a href="{{ route('index') }}">Сбросить проект в начальное состояние</a></li>
                     <li><a href="/locale/en">en</a></li>
 
