@@ -33,4 +33,9 @@ class MainController extends Controller
 	{
 		return view('basket');
 	}
+
+    public function basketPlace()
+	{
+		return view('order');
+	}
 }
