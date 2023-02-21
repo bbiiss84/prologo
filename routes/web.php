@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\BasketController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,9 +32,11 @@ require __DIR__.'/auth.php';
 
 Route::get('/', [MainController::class, 'index'])->name('index');
 
-Route::get('/basket', [MainController::class, 'basket'])->name('basket');
+Route::get('/basket', [BasketController::class, 'basket'])->name('basket');
 
-Route::get('/basket/place', [MainController::class, 'basketPlace'])->name('basket-place');
+Route::get('/basket/place', [BasketController::class, 'basketPlace'])->name('basket-place');
+
+Route::match(['get', 'post'], 'basket/add/{id}', [BasketController::class, 'basketAdd'])->name('basket-add');
 
 Route::get('/categories', [MainController::class, 'categories'])->name('categories');
 
