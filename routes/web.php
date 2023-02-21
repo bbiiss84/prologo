@@ -29,11 +29,11 @@ require __DIR__.'/auth.php';
 
 /*============================*/
 
-Route::get('/', [MainController::class, 'index']);
+Route::get('/', [MainController::class, 'index'])->name('index');
 
-Route::get('/categories', [MainController::class, 'categories']);
+Route::get('/categories', [MainController::class, 'categories'])->name('categories');
 
-Route::get('/{category}', [MainController::class, 'category']);
+Route::get('/{category}', [MainController::class, 'category'])->name('category');
 
-Route::get('/mobiles/{product?}', [MainController::class, 'product']);
+Route::get('/{category}/{product?}', [MainController::class, 'product'])->name('product');
 
