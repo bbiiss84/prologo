@@ -28,8 +28,8 @@
                     <li><a href="{{ route('categories') }}">Категории</a>
                     </li>
                     <li><a href={{ route('basket') }}>Корзина</a></li>
-                    <li><a href="{{ route('index') }}">Сбросить проект в начальное состояние</a></li>
-                    <li><a href="/locale/en">en</a></li>
+                    {{-- <li><a href="{{ route('index') }}">Сбросить проект в начальное состояние</a></li>
+                    <li><a href="/locale/en">en</a></li> --}}
 
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
