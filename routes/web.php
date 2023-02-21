@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\BasketController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +33,10 @@ require __DIR__.'/auth.php';
 /*============================*/
 
 Route::get('/', [MainController::class, 'index'])->name('index');
+
+Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('get-logout');
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/basket', [BasketController::class, 'basket'])->name('basket');
 

@@ -43,8 +43,14 @@
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/login">Войти</a></li>
-
+                    @guest
+                        <li><a href="{{ route('login') }}">Войти</a></li>
+                        <li><a href="{{ route('register') }}">Регистрация</a></li>
+                    @endguest
+                    @auth
+                        <li><a href="{{ route('home') }}">Панель администратора</li>
+                        <li><a href="{{ route('get-logout') }}">Выйти</li>
+                    @endauth
                 </ul>
             </div>
         </div>
