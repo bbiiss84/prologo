@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\Product;
 
 class BasketController extends Controller
 {
@@ -22,7 +23,7 @@ class BasketController extends Controller
         $orderId = session('orderId');
 
         if (is_null($orderId)) {
-            return redirect()->route('index'); // Если заказа нет, переходим на главную
+            return redirect()->route('index');
         }
 
         $order = Order::find($orderId);
@@ -40,16 +41,19 @@ class BasketController extends Controller
             $order = Order::find($orderId);
         }
 
-        if ($order->products->contains($productId)) { // Проверяем есть ли такой товар в корзине
+        if ($order->products->contains($productId)) {
             $pivotRow = $order->products()
                 ->where('product_id', $productId)
                 ->first()
-                ->pivot; // Получаем доступ к полям таблицы (для данного товара)
-            $pivotRow->count++; // Увеличиваем счетчик
-            $pivotRow->update(); // Обновляем поля
+                ->pivot;
+            $pivotRow->count++;
+            $pivotRow->update();
         } else {
-            $order->products()->attach($productId); // Если товара еще не было в корзине, добавляем
+            $order->products()->attach($productId);
         }
+
+        $product = Product::find($productId);
+        session()->flash('success', 'Добавлен товар ' . $product->name);
 
         return to_route('basket');
     }
@@ -65,18 +69,21 @@ class BasketController extends Controller
 
         $order = Order::find($orderId);
 
-        if ($order->products->contains($productId)) { // Проверяем есть ли такой товар в корзине
+        if ($order->products->contains($productId)) {
             $pivotRow = $order->products()
                 ->where('product_id', $productId)
                 ->first()
-                ->pivot; // Получаем доступ к полям таблицы (для данного товара)
+                ->pivot;
             if ($pivotRow->count < 2) {
-                $order->products()->detach($productId); // Если такой товар в корзине один, удаляем его
+                $order->products()->detach($productId);
             } else {
-                $pivotRow->count--; // Уменьшаем счетчик
-                $pivotRow->update(); // Обновляем поля
+                $pivotRow->count--;
+                $pivotRow->update();
             }
         }
+
+        $product = Product::find($productId);
+        session()->flash('warning', 'Удален товар ' . $product->name);
 
         return to_route('basket');
     }
@@ -85,11 +92,17 @@ class BasketController extends Controller
     {
         $orderId = session('orderId');
         if (is_null($orderId)) {
-            return to_route('index'); // Если заказа нет, переходим на главную
+            return to_route('index');
         }
 
         $order = Order::find($orderId);
-        $success = $order->saveOrder($request->name, $request->phone); // Вызываем функцию сохранения заказа из модели и передаем ей параметры. Сохранив это в переменную, потом можем где-нибудь использовать.
+        $success = $order->saveOrder($request->name, $request->phone);
+
+        if ($success) {
+            session()->flash('success', 'Ваш заказ принят в обработку!');
+        } else {
+            session()->flash('warning', 'Произошла ошибка');
+        }
 
         return to_route('index');
     }
