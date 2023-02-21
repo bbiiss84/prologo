@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MainController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +14,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('index');
-});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -32,10 +29,11 @@ require __DIR__.'/auth.php';
 
 /*============================*/
 
-Route::get('/categories', function () {
-	return view('categories');
-});
+Route::get('/', [MainController::class, 'index']);
 
-Route::get('/mobiles/iphone_x_64', function () {
-	return view('product');
-});
+Route::get('/categories', [MainController::class, 'categories']);
+
+Route::get('/{category}', [MainController::class, 'category']);
+
+Route::get('/mobiles/{product?}', [MainController::class, 'product']);
+
