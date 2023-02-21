@@ -31,6 +31,8 @@ require __DIR__.'/auth.php';
 
 Route::get('/', [MainController::class, 'index'])->name('index');
 
+Route::get('/basket', [MainController::class, 'basket'])->name('basket');
+
 Route::get('/categories', [MainController::class, 'categories'])->name('categories');
 
 Route::get('/{category}', [MainController::class, 'category'])->name('category');
