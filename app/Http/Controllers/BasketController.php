@@ -19,7 +19,15 @@ class BasketController extends Controller
 
     public function basketPlace()
     {
-        return view('order');
+        $orderId = session('orderId');
+
+        if (is_null($orderId)) {
+            return redirect()->route('index'); // Если заказа нет, переходим на главную
+        }
+
+        $order = Order::find($orderId);
+
+        return view('order', ['order' => $order]);
     }
 
     public function basketAdd($productId)
@@ -71,5 +79,18 @@ class BasketController extends Controller
         }
 
         return to_route('basket');
+    }
+
+    public function basketConfirm(Request $request)
+    {
+        $orderId = session('orderId');
+        if (is_null($orderId)) {
+            return to_route('index'); // Если заказа нет, переходим на главную
+        }
+
+        $order = Order::find($orderId);
+        $success = $order->saveOrder($request->name, $request->phone); // Вызываем функцию сохранения заказа из модели и передаем ей параметры. Сохранив это в переменную, потом можем где-нибудь использовать.
+
+        return to_route('index');
     }
 }
