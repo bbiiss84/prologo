@@ -2,7 +2,7 @@
     <div class="thumbnail">
         <div class="labels">
         </div>
-        <img src="/storage/products/iphone_x.jpg" alt="iPhone X 64GB">
+        <img src="http://internet-shop.tmweb.ru/storage/products/iphone_x.jpg" alt="iPhone X 64GB">
         <div class="caption">
             <h3>iPhone X 64GB</h3>
             <p>71990 ₽</p>
