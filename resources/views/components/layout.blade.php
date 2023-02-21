@@ -29,7 +29,7 @@
                     </li>
                     <li><a href={{ route('basket') }}>Корзина</a></li>
                     {{-- <li><a href="{{ route('index') }}">Сбросить проект в начальное состояние</a></li>
-                    <li><a href="/locale/en">en</a></li> --}}
+                    <li><a href="/locale/en">en</a></li>
 
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -39,7 +39,7 @@
                             <li><a href="/currency/USD">$</a></li>
                             <li><a href="/currency/EUR">€</a></li>
                         </ul>
-                    </li>
+                    </li> --}}
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
@@ -48,8 +48,8 @@
                         <li><a href="{{ route('register') }}">Регистрация</a></li>
                     @endguest
                     @auth
-                        <li><a href="{{ route('home') }}">Панель администратора</li>
-                        <li><a href="{{ route('get-logout') }}">Выйти</li>
+                        <li><a href="{{ route('home') }}">Панель администратора</a></li>
+                        <li><a href="{{ route('get-logout') }}">Выйти</a></li>
                     @endauth
                 </ul>
             </div>

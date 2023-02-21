@@ -6,6 +6,7 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\BasketController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,9 +28,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::middleware('is_admin')->namespace('Admin')->group(function () {
-        Route::get('/order', [OrderController::class, 'index'])->name('home');
-    });
+    Route::prefix('admin')->group(function () {
+		Route::middleware('is_admin')->namespace('Admin')->group(function () {
+			Route::get('/orders', [OrderController::class, 'index'])->name('home');
+	});
+		Route::resource('categories', CategoryController::class);
+	});
 });
 
 require __DIR__ . '/auth.php';
