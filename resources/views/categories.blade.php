@@ -52,15 +52,17 @@
 
     <div class="container">
         <div class="starter-template">
-            <div class="panel">
-                <a href="/mobiles">
-                    <img src="/storage/categories/mobile.jpg">
-                    <h2>Мобильные телефоны</h2>
-                </a>
-                <p>
-                    В этом разделе вы найдёте самые популярные мобильные телефонамы по отличным ценам!
-                </p>
-            </div>
+            @foreach ($categories as $category)
+                <div class="panel">
+                    <a href="/{{ $category->code }}">
+                        <img src="/storage/categories/mobile.jpg">
+                        <h2>{{ $category->name }}</h2>
+                    </a>
+                    <p>
+                        {{ $category->description }}
+                    </p>
+                </div>
+            @endforeach
             <div class="panel">
                 <a href="/portable">
                     <img src="/storage/categories/portable.jpg">

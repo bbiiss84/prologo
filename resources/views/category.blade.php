@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Интернет Магазин</title>
+    <title>{{$category->name}}</title>
 
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
@@ -40,17 +40,10 @@
     <div class="container">
         <div class="starter-template">
             <h1>
-                @if ($category == 'mobiles')
-                    // Заголовок меняется. Пока только он.
-                    Мобильные телефоны
-                @elseif($category == 'portable')
-                    Портативная техника
-                @elseif($category == 'appliances')
-                    Бытовая техника
-                @endif
+                {{$category->name}}
             </h1>
             <p>
-                В этом разделе вы найдёте самые популярные мобильные телефоны по отличным ценам!
+                {{$category->description}}
             </p>
             <div class="row">
                 <div class="col-sm-6 col-md-4">
