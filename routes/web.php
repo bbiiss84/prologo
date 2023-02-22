@@ -7,6 +7,7 @@ use App\Http\Controllers\BasketController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,7 @@ Route::middleware('auth')->group(function () {
 			Route::get('/orders', [OrderController::class, 'index'])->name('home');
 	});
 		Route::resource('categories', CategoryController::class);
+        Route::resource('products', ProductController::class);
 	});
 });
 
