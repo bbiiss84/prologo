@@ -51,6 +51,8 @@ require __DIR__ . '/auth.php';
 
 Route::get('/', [MainController::class, 'index'])->name('index');
 
+Route::get('/reset', [ResetController::class, 'reset'])->name('reset');
+
 Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('get-logout');
 
 Route::prefix('basket')->group(function () {

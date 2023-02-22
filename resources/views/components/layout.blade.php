@@ -28,7 +28,8 @@
                     <li @routeactive('categor*')><a href="{{ route('categories') }}">Категории</a>
                     </li>
                     <li @routeactive('basket*')><a href={{ route('basket') }}>Корзина</a></li>
-                    {{-- <li><a href="{{ route('index') }}">Сбросить проект в начальное состояние</a></li>
+                    <li><a href="{{ route('reset') }}">Сбросить проект в начальное состояние</a></li>
+                    {{-- 
                     <li><a href="/locale/en">en</a></li>
 
                     <li class="dropdown">
