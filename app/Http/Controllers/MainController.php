@@ -5,12 +5,29 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
+use App\Http\Requests\ProductsFilterRequest;
 
 class MainController extends Controller
 {
-    public function index()
+    public function index(ProductsFilterRequest $request)
     {
-        $products = Product::get();
+        $productsQuery = Product::query(); // Вызываем метод query
+
+        if ($request->filled('price_from')) {
+            $productsQuery->where('price', '>=', $request->price_from); // теперь можно использовать where
+        }
+
+        if ($request->filled('price_to')) {
+            $productsQuery->where('price', '<=', $request->price_to);
+        }
+
+        foreach (['hit', 'new', 'recommend'] as $field) {
+            if ($request->has($field)) {
+                $productsQuery->where($field, 1); // Где такое поле существует
+            }
+        }
+
+        $products = $productsQuery->paginate(6)->withPath("?" . $request->getQueryString());
         return view('index', ['products' => $products]);
     }
 
@@ -32,12 +49,12 @@ class MainController extends Controller
     }
 
     public function basket()
-	{
-		return view('basket');
-	}
+    {
+        return view('basket');
+    }
 
     public function basketPlace()
-	{
-		return view('order');
-	}
+    {
+        return view('order');
+    }
 }
