@@ -1,4 +1,4 @@
-<x-layout>
+<x-master>
 
     <x-slot name='title'>
         Заказы
@@ -37,8 +37,11 @@
                         <td>{{ $order->getFullPrice() }} руб.</td>
                         <td>
                             <div class="btn-group" role="group">
-                                <a class="btn btn-success" type="button"
-                                    href="http://laravel-diplom-1.rdavydov.ru/admin/orders/1">Открыть</a>
+                                <a class="btn btn-success" type="button" @admin
+                                    href="{{ route('order.show', $order) }}" @else
+                                    href="{{ route('person.order.show', $order) }}" @endadmin>
+                                    Открыть
+                                </a>
                             </div>
                         </td>
                     </tr>
@@ -46,4 +49,4 @@
             </tbody>
         </table>
     </div>
-</x-layout>
+</x-master>

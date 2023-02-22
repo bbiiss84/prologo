@@ -1,4 +1,4 @@
-<x-layout>
+<x-master>
 
     @isset($product)
         <x-slot name='title'>
@@ -68,8 +68,8 @@
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                         <textarea name="description" id="description" cols="72" rows="7">
-                {{ old('description', isset($product) ? $product->description : null) }}
-              </textarea>
+                            {{ old('description', isset($product) ? $product->description : null) }}
+                        </textarea>
 
                     </div>
                 </div>
@@ -98,4 +98,4 @@
         </form>
 
     </div>
-</x-layout>
+</x-master>
