@@ -15,17 +15,15 @@ class BasketIsNotEmpty
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
-    {
-        $orderId = session('orderId');
-        if (!is_null($orderId)) { // Проверяем, что заказ существует
-            $order = Order::findOrFail($orderId); // findOrFail() выдаст 404, если по айдишнику ничего не найдено
-            if ($order->products->count() > 0) { // Если количество товаров в корзине > 0
-                return $next($request);
-            }
-        }
+    public function handle(Request $request, Closure $next)
+	{
+		$orderId = session('orderId');
 
-        session()->flash('warning', 'Ваша корзина пуста');
-        return to_route('index');
-    }
+		if (!is_null($orderId) && Order::getFullSum() > 0) { // Проверяем, что заказ существует и стоимость больше нуля
+			return $next($request);
+		}
+
+		session()->flash('warning', 'Ваша корзина пуста');
+		return to_route('index'); // Редиректит на главную страницу
+	}
 }

@@ -5,7 +5,7 @@
     <h1>Подтвердите заказ:</h1>
     <div class="container">
         <div class="row justify-content-center">
-            <p>Общая стоимость заказа: <b>{{ $order->getFullPrice() }} руб.</b></p>
+            <p>Общая стоимость заказа: <b>{{ $order->calculateFullSum() }} руб.</b></p>
             <form action="{{ route('basket-confirm') }}" method="POST">
                 <div>
                     <p>Укажите свои имя и номер телефона, чтобы наш менеджер мог с вами связаться:</p>
@@ -28,9 +28,9 @@
                         </div>
                     </div>
                     <br>
-                    <input type="hidden" name="_token" value="qhk4riitc1MAjlRcro8dvWchDTGkFDQ9Iacyyrkj"> <br>
+                    <input type="hidden" name="_token"> <br>
                     <input type="submit" class="btn btn-success"
-                        href="http://laravel-diplom-1.rdavydov.ru/basket/place" value="Подтвердить заказ">
+                        href="/basket/place" value="Подтвердить заказ">
                 </div>
                 @csrf
             </form>
