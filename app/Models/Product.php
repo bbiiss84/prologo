@@ -4,26 +4,34 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
-    protected $fillable = ['name', 'code', 'price', 'category_id', 'description', 'image', 'new', 'hit', 'recommend'];
-    
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }
+	use SoftDeletes; // trait (трейт) - расширение класса. Добавляет функционал, который у нас уже где-то реализован
 
-    public function getPriceForCount()
-    {
-        if (!is_null($this->pivot)) {
-            return $this->pivot->count * $this->price;
-        }
+	protected $fillable = ['name', 'code', 'price', 'category_id', 'description', 'image', 'new', 'hit', 'recommend', 'count'];
 
-        return $this->price;
-    }
+	public function category()
+	{
+		return $this->belongsTo(Category::class);
+	}
 
-    public function scopeHit($query)
+	public function getPriceForCount()
+	{
+		if (!is_null($this->pivot)) {
+			return $this->pivot->count * $this->price;
+		}
+
+		return $this->price;
+	}
+
+	public function scopeByCode($query, $code)
+	{
+		return $query->where('code', $code);
+	}
+
+	public function scopeHit($query)
 	{
 		return $query->where('hit', 1);
 	}
@@ -38,7 +46,7 @@ class Product extends Model
 		return $query->where('recommend', 1);
 	}
 
-    public function setHitAttribute($value)
+	public function setHitAttribute($value)
 	{
 		$this->attributes['hit'] = $value === 'on' ? 1 : 0; // Если передано "on" = 1, иначе = 0
 	}
@@ -53,7 +61,12 @@ class Product extends Model
 		$this->attributes['recommend'] = $value === 'on' ? 1 : 0;
 	}
 
-    public function isHit()
+	public function isAvailable()
+	{
+		return !$this->trashed() && $this->count > 0;
+	}
+
+	public function isHit()
 	{
 		return $this->hit === 1;
 	}

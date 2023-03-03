@@ -88,19 +88,38 @@
                     </div>
                 </div>
                 <br>
-                @foreach (['hit' => 'Хит', 'new' => 'Новинка', 'recommend' => 'Рекомендуемые'] as $field => $title)
-                    <div class="form-group row">
-                        <label for="code" class="col-sm-2 col-form-label">{{ $title }}: </label>
-                        <div class="col-sm-1">
-                            <input type="checkbox" class="form-control" name="{{ $field }}"
-                                id="{{ $field }}" @if (isset($product) && $product->$field === 1) checked = "checked" @endif>
-                        </div>
+                <div class="input-group row">
+                    <label for="count" class="col-sm-4 col-form-label">Количество: </label>
+                    <div class="col-sm-6">
+                        @include('auth.layouts.error', ['fieldName' => 'count'])
+                        <input type="text" class="form-control" name="count" id="count"
+                            value="{{ old('count', isset($product) ? $product->count : null) }}">
                     </div>
-                    <br>
-                @endforeach
-                <button class="btn btn-success">Сохранить</button>
+                </div>
+                <br>
             </div>
-        </form>
+            <div class="input-group row">
+                <label for="count" class="col-sm-2 col-form-label">Кол-во: </label>
+                <div class="col-sm-2">
+                    @include('auth.layouts.error', ['fieldName' => 'count'])
+                    <input type="text" class="form-control" name="count" id="count"
+                        value="@isset($product){{ $product->count }}@endisset">
+                </div>
+            </div>
+            <br>
+            @foreach (['hit' => 'Хит', 'new' => 'Новинка', 'recommend' => 'Рекомендуемые'] as $field => $title)
+                <div class="form-group row">
+                    <label for="code" class="col-sm-2 col-form-label">{{ $title }}: </label>
+                    <div class="col-sm-1">
+                        <input type="checkbox" class="form-control" name="{{ $field }}"
+                            id="{{ $field }}" @if (isset($product) && $product->$field === 1) checked = "checked" @endif>
+                    </div>
+                </div>
+                <br>
+            @endforeach
+            <button class="btn btn-success">Сохранить</button>
+    </div>
+    </form>
 
     </div>
 </x-master>

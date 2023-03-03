@@ -8,9 +8,12 @@
     <img src="{{ Storage::url($product->image) }}">
     <p>{{ $product->description }}</p>
 
-    @if ($product->isAvailable())
-        <a class="btn btn-success" href="{{ route('basket-add') }}">Добавить в корзину</a>
-    @else
-        <a class="btn btn-success" href="{{ route('basket-add') }}">Заказать</a>
-    @endif
+    <form action="{{ route('basket-add', $product) }}" method="POST">
+        @if ($product->isAvailable())
+            <button type="submit" class="btn btn-primary" role="button">В корзину</button>
+        @else
+            <button type="submit" class="btn btn-primary" role="button">Заказать</button>
+        @endif
+        @csrf
+    </form>
 </x-layout>
