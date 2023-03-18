@@ -39,13 +39,21 @@ class Basket
         return $this->order;
     }
 
-    public function countAvailable()
+    public function countAvailable($updateCount = false)
     {
         foreach ($this->order->products as $orderProduct) {
             if ($orderProduct->count < $this->getPivotRow($orderProduct)->count) {
                 return false;
             }
+            if ($updateCount) {
+                $orderProduct->count -= $this->getPivotRow($orderProduct)->count;
+            }
         }
+
+        if ($updateCount) {
+            $this->order->products->map->save();
+        }
+
         return true;
     }
 
